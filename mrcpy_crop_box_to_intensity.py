@@ -14,7 +14,7 @@ def main():
     parser.add_argument('--threshold', type=float, default=0.1, help="Threshold for cropping")
     parser.add_argument('--pad_factor', type=float, default=1.0, help="Pad the cropped region by this factor")
     parser.add_argument('--pad_value', type=str, default='avg',
-                        help="Value to pad the cropped region with. Default is 'avg'.")
+                        help="Value to pad the cropped region with. Default is 'avg' = average value of the background (values below threshold).")
     parser.add_argument('--cubic', action='store_true', help="Make the box cubic")
 
     # Check if no arguments are provided
@@ -98,7 +98,7 @@ def main():
         pad_x_max = max(0, x_max - mrcData.shape[2] + 1)
 
         if pad_value == 'avg':
-            avg_value = np.mean(mrcData)
+            avg_value = np.mean(mrcData[mrcData < threshold])
         else:
             try:
                 avg_value = float(pad_value)
@@ -113,22 +113,14 @@ def main():
         origin_pad = (z_min, y_min, x_min)
 
         # Recalculate bounding box after padding
+
         z_min = max(0, z_min)
         y_min = max(0, y_min)
         x_min = max(0, x_min)
 
-        if pad_x_max > 0:
-            x_max = max(mrcData.shape[2] - 1, x_max)
-        else:
-            x_max = min(mrcData.shape[2] - 1, x_max)
-        if pad_y_max > 0:
-            y_max = max(mrcData.shape[1] - 1, y_max)
-        else:
-            y_max = min(mrcData.shape[1] - 1, y_max)
-        if pad_z_max > 0:
-            z_max = max(mrcData.shape[0] - 1, z_max)
-        else:
-            z_max = min(mrcData.shape[0] - 1, z_max)
+        z_max = z_min+int((z_size * extend_factor))-1
+        y_max = y_min+int((y_size * extend_factor))-1
+        x_max = x_min+int((x_size * extend_factor))-1
 
         # Ensure even size by further adjusting the bounding box
         if (z_max - z_min + 1) % 2 != 0:
