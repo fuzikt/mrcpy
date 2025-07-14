@@ -80,7 +80,7 @@ def main():
     parser.add_argument('--diameter', required=True, type=int, help="Diameter of the icosahedron in pixels")
     parser.add_argument('--smooth_sigma',  default=3.0, type=int, help="Gaussian smoothing sigma for the faces (Default: 3.0)")
     parser.add_argument('--apix', type=float, default=1.0, help="Pixel size in Angstroms (Default: 1.0 A/pixel)")
-    parser.add_argument('--output', type=str, default='icosahedron.mrc', help="Output MRC file name")
+    parser.add_argument('--o', type=str, default='icosahedron.mrc', help="Output MRC file name")
     parser.add_argument('--sym', default="I1", type=str,
                         help="Symmetry convention of the icosahedron (I1, I2. I3, I4; Default: I1).")
     parser.add_argument('--rot', type=float, default=0.0, help="Rot Euler angle applied to icosahedron in ZYZ Euler angle convetion (Default: 0.0 degrees)")

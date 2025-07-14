@@ -3,6 +3,7 @@ Python scripts for MRC file editing.
 
 ## Table of Contents
 - [Install](#install)
+- [mrcpy_create_icosahedron.py](#mrcpy_create_icosahedronpy)
 - [mrcpy_crop_box_to_intensity.py](#mrcpy_crop_box_to_intensitypy)
 - [mrcpy_max_intensity_projection.py](#mrcpy_max_intensity_projectionpy)
 - [mrcpy_non_zero_mean.py](#mrcpy_non_zero_meanpy)
@@ -28,6 +29,20 @@ source mrcpy_env/bin/activate
 
 # Install requirements from the requirements.txt file
 pip install -r requirements.txt
+```
+
+## mrcpy_create_icosahedron.py
+Creates an icosahedron of a defined diameter in a desired box size.
+```
+    --box_size          Box size of the MRC file")
+    --diameter          Diameter of the icosahedron in pixels")
+    --smooth_sigma      Gaussian smoothing sigma for the faces (Default: 3.0)")
+    --apix              Pixel size in Angstroms (Default: 1.0 A/pixel)")
+    --o                 Output MRC file name")
+    --sym                Symmetry convention of the icosahedron (I1, I2. I3, I4; Default: I1).")
+    --rot               Rot Euler angle applied to icosahedron in ZYZ Euler angle convetion (Default: 0.0 degrees)")
+    --tilt              Tilt Euler angle applied to icosahedron in ZYZ Euler angle convetion (Default: 0.0 degrees)")
+    --psi               Psi Euler angle applied to icosahedron in ZYZ Euler angle convetion (Default: 0.0 degrees)")
 ```
 
 ## mrcpy_crop_box_to_intensity.py
