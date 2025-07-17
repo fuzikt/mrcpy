@@ -68,7 +68,7 @@ def main():
         description="Bin MRC file(s) using Fourier cropping method with parallelization.")
     parser.add_argument('--i', required=True, help="Input MRC file or directory with mrc files")
     parser.add_argument('--o', required=True, help="Output MRC file or directory for binned mrc files")
-    parser.add_argument('--bin', type=int, required=True, help="Binning factor (integer > 0)")
+    parser.add_argument('--bin', type=float, required=True, help="Binning factor (integer > 0)")
     parser.add_argument('--j', type=int, default=4, help="Number of parallel workers (default: 4)")
     args = parser.parse_args()
 
