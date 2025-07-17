@@ -1,3 +1,5 @@
 mrcfile
 numpy
 scipy
+numba
+tqdm

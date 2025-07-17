@@ -5,6 +5,8 @@ Python scripts for MRC file editing.
 - [Install](#install)
 - [mrcpy_create_icosahedron.py](#mrcpy_create_icosahedronpy)
 - [mrcpy_crop_box_to_intensity.py](#mrcpy_crop_box_to_intensitypy)
+- [mrcpy_fft_binning.py](#mrcpy_fft_binningpy)
+- [mrcpy_float16to32.py](#mrcpy_float16to32py)
 - [mrcpy_max_intensity_projection.py](#mrcpy_max_intensity_projectionpy)
 - [mrcpy_non_zero_mean.py](#mrcpy_non_zero_meanpy)
 - [mrcpy_normalize.py](#mrcpy_normalizepy)
@@ -54,6 +56,22 @@ Crop MRC file to a bounding box defined by a threshold of the map intensities. T
   --pad_factor   Pad the cropped region by this factor
   --pad_value    Value to pad the cropped region with. Default is 'avg'.
   --cubic        Make the box cubic
+```
+
+## mrcpy_fft_binning.py
+Binning of MRC file(s) using Fourier cropping method with parallelization.
+```
+    --i     Input MRC file or directory with mrc files
+    --o     Output MRC file or directory for binned mrc files
+    --bin   Binning factor (integer > 0)
+    --j     Number of parallel workers (default: 4)
+```
+
+## mrcpy_float16to32.py
+Converts MRC file(s) from float16 format to float32.
+```
+    --i     Input MRC file or directory with mrc files
+    --o     Output MRC file or directory for converted mrc files
 ```
 
 ## mrcpy_max_intensity_projection.py
