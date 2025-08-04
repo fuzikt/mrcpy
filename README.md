@@ -103,3 +103,15 @@ Pad MRC file to cubic size with average value. The origin of the new map is modi
   --o           Output MRC file
   --pad_value   Value to pad the cropped region with. Default is 'avg'.
 ```
+
+## mrcpy_postprocess_icos_map.py
+Post process icosahedral map (i222 sym) for model building.
+```    
+    --i                 Input MRC file
+    --o                 Output prefix
+    --crop              Crop the MRC file to a cube of this size in pixels (default: -1, no cropping)
+    --norm              Normalize the MRC file to mean=0 and SD=1
+    --flip              Flip the MRC file along the x-axis
+    --shift_origin      Shift origin to the center of the map
+    --p23               Create additional copy of map converted to P23 symmetry
+```
