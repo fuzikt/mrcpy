@@ -11,6 +11,8 @@ Python scripts for MRC file editing.
 - [mrcpy_non_zero_mean.py](#mrcpy_non_zero_meanpy)
 - [mrcpy_normalize.py](#mrcpy_normalizepy)
 - [mrcpy_pad_to_cubic.py](#mrcpy_pad_to_cubicpy)
+- [mrcpy_plot_intensity_profile_along_vector.py](#mrcpy_plot_intensity_profile_along_vectorpy)
+- [mrcpy_postprocess_icos_map.py](#mrcpy_postprocess_icos_mappy)
 
 ## Install
 To install the scripts, clone the repository and add the path to the scripts to your PATH variable.
@@ -104,6 +106,13 @@ Pad MRC file to cubic size with average value. The origin of the new map is modi
   --pad_value   Value to pad the cropped region with. Default is 'avg'.
 ```
 
+## mrcpy_plot_intensity_profile_along_vector.py
+Plot intensity profile along a vector in an MRC volume.
+```    
+  --i         Input MRC file path
+  --vector    Vector direction as comma-separated values x,y,z (e.g., 1,0,0)
+  --o         Output CSV file path
+```
 ## mrcpy_postprocess_icos_map.py
 Post process icosahedral map (i222 sym) for model building.
 ```    

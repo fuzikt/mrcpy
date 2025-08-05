@@ -4,6 +4,7 @@ import argparse
 import numpy as np
 import mrcfile
 import matplotlib.pyplot as plt
+import sys
 import csv
 
 def parse_args():
@@ -11,6 +12,11 @@ def parse_args():
     parser.add_argument('--i', required=True, help='Input MRC file path')
     parser.add_argument('--vector', required=True, help='Vector direction as comma-separated values x,y,z (e.g., 1,0,0)')
     parser.add_argument('--o', required=True, help='Output CSV file path')
+    # Check if no arguments are provided
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
+
     return parser.parse_args()
 
 def sample_along_vector(data, voxel_size, vector):
@@ -28,6 +34,9 @@ def sample_along_vector(data, voxel_size, vector):
 
 def main():
     args = parse_args()
+
+
+
     with mrcfile.open(args.i, permissive=True) as mrc:
         data = mrc.data
         voxel_size = mrc.voxel_size
