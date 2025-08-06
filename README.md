@@ -114,13 +114,15 @@ Plot intensity profile along a vector in an MRC volume.
   --o         Output CSV file path
 ```
 ## mrcpy_postprocess_icos_map.py
-Post process icosahedral map (i222 sym) for model building.
+Post process icosahedral map for model building.
 ```    
     --i                 Input MRC file
     --o                 Output prefix
+    --i4to1             Rotate the MRC file from I4 icosahedral symmetry to I1 (i222)
     --crop              Crop the MRC file to a cube of this size in pixels (default: -1, no cropping)
     --norm              Normalize the MRC file to mean=0 and SD=1
     --flip              Flip the MRC file along the x-axis
     --shift_origin      Shift origin to the center of the map
     --p23               Create additional copy of map converted to P23 symmetry
+    --gpu               Use GPU for map rotation (--i4to1)
 ```

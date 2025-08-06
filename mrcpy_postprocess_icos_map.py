@@ -3,17 +3,20 @@ import argparse
 import sys
 import mrcfile
 import numpy as np
+import voltools
 
 def main():
     # Create a command-line parser
-    parser = argparse.ArgumentParser(description="Post process icosahedral map (i222 sym) for model building. ")
+    parser = argparse.ArgumentParser(description="Post process icosahedral map for model building.")
     parser.add_argument('--i', required=True, help="Input MRC file")
     parser.add_argument('--o', required=True, help="Output prefix")
+    parser.add_argument('--i4to1', action='store_true', help="Rotate the MRC file from I4 icosahedral symmetry to I1 (i222) ")
     parser.add_argument('--crop', type=int, default=-1, help="Crop the MRC file to a cube of this size in pixels (default: -1, no cropping)")
     parser.add_argument('--norm', action='store_true', help="Normalize the MRC file to mean=0 and SD=1")
     parser.add_argument('--flip', action='store_true', help="Flip the MRC file along the x-axis")
     parser.add_argument('--shift_origin', action='store_true', help="Shift origin to the center of the map")
     parser.add_argument('--p23', action='store_true', help="Create additional copy of map converted to P23 symmetry")
+    parser.add_argument('--gpu', action='store_true', help="Use GPU for map rotation (--i4to1)")
 
     # Check if no arguments are provided
     if len(sys.argv) == 1:
@@ -36,6 +39,16 @@ def main():
         nstart = inMrc.nstart
 
     outData = mrcData
+
+    if args.i4to1:
+        print("Rotating MRC file from I4 icosahedral symmetry to I1 (i222)...")
+        if args.gpu:
+            use_device='gpu'
+        else:
+            use_device='cpu'
+        outData = voltools.transform(outData, interpolation='linear', device=use_device,
+                               rotation=(0, -58.283, 0), rotation_units='deg', rotation_order='rzyz')
+
 
     if args.crop > 0:
         print(f"Cropping MRC file to {args.crop} pixels...")
