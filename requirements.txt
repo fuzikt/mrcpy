@@ -4,3 +4,5 @@ scipy
 numba
 tqdm
 matplotlib
+voltools
+cupy
