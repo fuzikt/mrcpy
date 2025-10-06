@@ -13,6 +13,7 @@ Python scripts for MRC file editing.
 - [mrcpy_pad_to_cubic.py](#mrcpy_pad_to_cubicpy)
 - [mrcpy_plot_intensity_profile_along_vector.py](#mrcpy_plot_intensity_profile_along_vectorpy)
 - [mrcpy_postprocess_icos_map.py](#mrcpy_postprocess_icos_mappy)
+- [mrpc_spherical_shell_extraction.py](#mrpc_spherical_shell_extractionpy)
 
 ## Install
 To install the scripts, clone the repository and add the path to the scripts to your PATH variable.
@@ -125,4 +126,15 @@ Post process icosahedral map for model building.
     --shift_origin      Shift origin to the center of the map
     --p23               Create additional copy of map converted to P23 symmetry
     --gpu               Use GPU for map rotation (--i4to1)
+```
+## mrpc_spherical_shell_extraction.py
+Extract intensity values by shells from the center of the map and map them on sphere.
+```    
+    --i         Input MRC file
+    --o         Output MRC file
+    --r         Radius of the shell in pixels to extract. If 0, all the shells as series will be extracted (default: 0)
+    --rot       Rotate the input map by this ROT Euler angle (ZYZ) in degrees before shell extraction (default: 0.0)
+    --tilt      Rotate the input map by this TILT Euler angle (ZYZ) in degrees before shell extraction (default: 0.0)   
+    --psi       Rotate the input map by this PSI Euler angle (ZYZ) in degrees before shell extraction (default: 0.0)
+    --gpu       Use GPU for map rotation
 ```
