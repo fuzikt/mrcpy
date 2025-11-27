@@ -122,6 +122,7 @@ if __name__ == "__main__":
             use_device = 'cpu'
         mrc_data = np.transpose(
                 voltools.transform(np.transpose(mrc_data), interpolation='linear', device=use_device,
+                                   rotation=(-rot, -tilt, -psi), rotation_units='deg', rotation_order='rzyz'))
 
     shells = spherical_shell_series(mrc_data, r=radius, scale_to_radius=True)
 
