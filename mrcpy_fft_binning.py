@@ -44,7 +44,7 @@ def bin_mrc(input_path, output_path, bin_factor):
         out_mrc.update_header_stats()
         out_mrc.voxel_size = new_voxel_size
 
-def process(input_path, output_path, bin_factor, n_workers=4):
+def process(input_path, output_path, bin_factor, n_workers=4, do_unfinished=False):
     if os.path.isdir(input_path):
         os.makedirs(output_path, exist_ok=True)
         files = [
@@ -52,6 +52,14 @@ def process(input_path, output_path, bin_factor, n_workers=4):
             for fname in sorted(os.listdir(input_path))
             if fname.lower().endswith('.mrc')
         ]
+        print(f"Found {len(files)} MRC files to process.")
+        if do_unfinished:
+            files = [
+                (in_file, out_file, bin_factor)
+                for in_file, out_file, bin_factor in files
+                if not os.path.exists(out_file)
+            ]
+            print(f"{len(files)} unfinished MRC files to process.")
         with ProcessPoolExecutor(max_workers=n_workers) as executor:
             futures = {executor.submit(bin_mrc, in_file, out_file, bin_factor): in_file for in_file, out_file, bin_factor in files}
             for future in tqdm(as_completed(futures), total=len(files), desc="Processing files"):
@@ -70,11 +78,12 @@ def main():
     parser.add_argument('--o', required=True, help="Output MRC file or directory for binned mrc files")
     parser.add_argument('--bin', type=float, required=True, help="Binning factor (integer > 0)")
     parser.add_argument('--j', type=int, default=4, help="Number of parallel workers (default: 4)")
+    parser.add_argument('--do_unfinished', action='store_true', help="Do only unfinished MRC files from input directory (default: 4)")
     args = parser.parse_args()
 
     if args.bin < 1:
         raise ValueError("--bin must be >= 1")
-    process(args.i, args.o, args.bin, args.j)
+    process(args.i, args.o, args.bin, args.j, args.do_unfinished)
 
 if __name__ == "__main__":
     main()
