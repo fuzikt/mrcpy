@@ -11,6 +11,7 @@ def main():
     parser.add_argument('--o', required=True, help="Output MRC file")
     parser.add_argument('--ax', default='z', choices=['x', 'y', 'z'], help="Axis for projection (x, y, or z). Default is 'z'.")
     parser.add_argument('--min', action='store_true', help="Compute minimum projection instead of maximum")
+    parser.add_argument('--mean', action='store_true', help="Compute mean projection instead of maximum")
 
     # Check if no arguments are provided
     if len(sys.argv) == 1:
@@ -33,14 +34,17 @@ def main():
         mrcData = inMrc.data
 
     # Compute max or min projection along the specified axis
-    if not minimum:
-        outData = np.max(mrcData, axis=axis_index)
-    else:
+    if minimum:
         outData = np.min(mrcData, axis=axis_index)
+    elif args.mean:
+        outData = np.mean(mrcData, axis=axis_index)
+    else:
+        outData = np.max(mrcData, axis=axis_index)
 
     # Write the output MRC file
     with mrcfile.new(output_mrc_file, overwrite=True) as outMrc:
         outMrc.set_data(outData)
+
 
 if __name__ == "__main__":
     main()
