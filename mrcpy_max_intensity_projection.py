@@ -32,6 +32,8 @@ def main():
     # Read the input MRC file
     with mrcfile.open(input_mrc_file, mode='r') as inMrc:
         mrcData = inMrc.data
+        voxel_size = inMrc.voxel_size
+
 
     # Compute max or min projection along the specified axis
     if minimum:
@@ -44,7 +46,9 @@ def main():
     # Write the output MRC file
     with mrcfile.new(output_mrc_file, overwrite=True) as outMrc:
         outMrc.set_data(outData)
-
+        outMrc.update_header_from_data()
+        outMrc.update_header_stats()
+        outMrc.voxel_size = voxel_size
 
 if __name__ == "__main__":
     main()
