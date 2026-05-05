@@ -92,7 +92,7 @@ def main():
 
     arr = fill_icosahedron(args.box_size, args.diameter, args.smooth_sigma, args.sym.upper(), args.rot, args.tilt, args.psi)
 
-    with mrcfile.new(args.output, overwrite=True) as mrc:
+    with mrcfile.new(args.o, overwrite=True) as mrc:
         mrc.set_data(arr)
         mrc.voxel_size = args.apix
 
