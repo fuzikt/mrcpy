@@ -51,7 +51,7 @@ def main():
     if non_zero_values.size == 0:
         non_zero_values = np.array([0])
 
-    print_statistics(non_zero_values, "non-zero values in the MRC file")
+    print_statistics(non_zero_values, apix, "non-zero values in the MRC file")
 
 if __name__ == "__main__":
     main()
