@@ -14,7 +14,7 @@ def adaptive_format(value):
     else:
         return f"{value:.4f}"
 
-def print_statistics(data, apix, description):
+def print_statistics(data, description):
     mean_value = np.mean(data)
     min_value = np.min(data)
     max_value = np.max(data)
