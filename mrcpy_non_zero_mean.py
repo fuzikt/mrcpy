@@ -15,15 +15,12 @@ def adaptive_format(value):
         return f"{value:.4f}"
 
 def print_statistics(data, apix, description):
-    number_of_non_zero_values = np.count_nonzero(data)
     mean_value = np.mean(data)
     min_value = np.min(data)
     max_value = np.max(data)
     std_dev = np.std(data)
 
     print(f"\nStatistics for the {description}:")
-    print(f"Number of non-zero voxels: {adaptive_format(number_of_non_zero_values)}")
-    print(f"Volume of non-zero voxels: {adaptive_format(number_of_non_zero_values * apix**3)} Å³")
     print(f"Min: {adaptive_format(min_value)}")
     print(f"Max: {adaptive_format(max_value)}")
     print(f"Mean: {adaptive_format(mean_value)}")
@@ -45,13 +42,17 @@ def main():
     mrcData = readMrcData(inputMRCfile)
     imageSizeX, imageSizeY, imageSizeZ, apix, originX, originY, originZ = readMrcSizeApix(inputMRCfile)
 
-    print_statistics(mrcData, apix, "whole MRC file")
+    print_statistics(mrcData, "whole MRC file")
 
     non_zero_values = mrcData[mrcData != 0]
     if non_zero_values.size == 0:
         non_zero_values = np.array([0])
 
-    print_statistics(non_zero_values, apix, "non-zero values in the MRC file")
+    print_statistics(non_zero_values, "non-zero values in the MRC file")
+
+    number_of_non_zero_values = np.count_nonzero(non_zero_values)
+    print(f"Number of non-zero voxels: {adaptive_format(number_of_non_zero_values)}")
+    print(f"Volume of non-zero voxels: {adaptive_format(number_of_non_zero_values * apix ** 3)} Å³")
 
 if __name__ == "__main__":
     main()
